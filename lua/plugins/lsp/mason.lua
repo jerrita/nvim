@@ -1,25 +1,12 @@
 local servers = {
-    clangd = {},
     lua_ls = {
         Lua = {
             hint = { enable = true }
         }
     },
-    rust_analyzer = {},
-    cmake = {
-        filetypes = { 'cmake', 'CMakeLists.txt' }
-    },
-    codelldb = {}
 }
 
 if vim.loop.os_uname().sysname == 'Linux' then
-    servers.nil_ls = {
-        settings = {
-            ['nil'] = {
-                formatting = { command = { 'nixpkgs-fmt' } }
-            },
-        }
-    }
 end
 
 local ensure_installed_names = vim.tbl_keys(servers or {})
@@ -29,6 +16,7 @@ return {
         keys = {
             { '<leader>lf', '<cmd>lua vim.lsp.buf.format { async = true }<CR>',                            desc = 'Format Code' },
             { '<leader>ld', '<cmd>Lspsaga peek_definition<CR>',                                            desc = 'Show Definition' },
+            { '<leader>lq', '<cmd>Lspsaga show_cursor_diagnostics<CR>',                                    desc = 'Show Diagnostics' }, 
             { '<leader>lh', '<cmd>Lspsaga hover_doc<CR>',                                                  desc = 'hover' },
             { '<leader>la', '<cmd>Lspsaga code_action<CR>',                                                desc = 'Code Action' },
             { '<leader>li', '<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>', desc = 'Toggle inlay hint' }
